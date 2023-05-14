@@ -1,0 +1,16 @@
+{
+    "name": "Coup.Logic",
+    "rootNamespace": "",
+    "references": [
+        "GUID:31b9d0f78a906a8478b10b8dc842467e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
