@@ -1,4 +1,4 @@
-using Logic.Cards;
+using Model.Cards;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ActionDatabase: {fileID: 11400000, guid: b178f56d17250644f80b8e8a02946a9e, type: 2}
   m_CardDatabase: {fileID: 11400000, guid: 5c742b07982b8144f8f73ebf1b661007, type: 2}
-  m_PlayerCount: 5
+  m_AIPlayerNames:
+  - Timmy
+  - Johnny
+  - Spike
+  - Oliver
+  - Other AI Player
   m_CardsPerPlayer: 2
   m_CoinTotal: 50

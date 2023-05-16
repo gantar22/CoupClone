@@ -1,10 +1,12 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 
 namespace Util.Editor
 {
     [CustomPropertyDrawer(typeof(OptionalInt))]
-    public class OptionalPropertyDrawer : PropertyDrawer
+    public class OptionalPropertyDrawer : UnityEditor.PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property,
             GUIContent label)
@@ -36,3 +38,4 @@ namespace Util.Editor
         }
     }
 }
+#endif
