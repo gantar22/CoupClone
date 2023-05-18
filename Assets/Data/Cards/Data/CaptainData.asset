@@ -19,12 +19,13 @@ MonoBehaviour:
     hasValue: 1
     value:
       name: Steal
-      actionType: 0
+      description: 
+      actionType: 1
       coinCost: 0
       cardsThatCanCounterThis:
       - {fileID: 11400000, guid: 758561c9e6c850e4d82b60150f35803b, type: 2}
       - {fileID: 11400000, guid: 3717bf9d9bc237c49b614a5b71ac4308, type: 2}
       amount: 2
-      obligatoryCoinCost:
+      m_ObligatoryCoinCost:
         hasValue: 0
         value: 0
