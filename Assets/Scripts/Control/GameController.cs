@@ -108,7 +108,7 @@ namespace Control
 
         void HandleChoice(Choice choice)
         {
-            var result = choice.result();
+            var result = ResultResolution.GetResult(m_CurrentGameState,m_GameConfig.cardDatabase,choice.onChosen);
             StartCoroutine(HandleResult(result));
         }
         IEnumerator HandleResult(Choice.Result result)

@@ -14,6 +14,17 @@ namespace Util
             outValue = value;
             return hasValue;
         }
+
+        public Optional()
+        {
+            hasValue = false;
+        }
+
+        public Optional(T value)
+        {
+            this.value = value;
+            hasValue = true;
+        }
     }
     
     [Serializable]
