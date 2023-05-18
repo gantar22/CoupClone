@@ -56,7 +56,7 @@ namespace UI
         public void EndGame(GameState gameState, int winningPlayer, Action onReset)
         {
             var winningPlayerName = gameState.playerStates[winningPlayer].playerName;
-            m_NewGameUI.Setup($"{winningPlayer} won!\nPlay again?", onReset);
+            m_NewGameUI.Setup($"{gameState.playerStates[winningPlayer].playerName} won!\nPlay again?", onReset);
         }
 
         public void Init(Action onStart)
