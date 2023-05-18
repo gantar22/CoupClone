@@ -108,13 +108,13 @@ namespace Control
 
         void HandleChoice(Choice choice)
         {
-            var result = ResultResolution.GetResult(m_CurrentGameState,m_GameConfig.cardDatabase,choice.onChosen);
+            var result = choice.onChosen.GetResult(m_CurrentGameState,m_GameConfig);
             StartCoroutine(HandleResult(result));
         }
-        IEnumerator HandleResult(Choice.Result result)
+        IEnumerator HandleResult(Model.State.Results.ResultOutcome resultOutcome)
         {
             // perform edits and check for winner
-            foreach (var edit in result.edits)
+            foreach (var edit in resultOutcome.edits)
             {
                 var log = LogGameStateEdit.GetLogFromEdit(m_CurrentGameState,m_GameConfig, edit);
                 m_UIManager.PushLog(log);
@@ -131,12 +131,12 @@ namespace Control
                 }
             }
             // display result text and wait
-            m_UIManager.SetResultText(result.resultText);
+            m_UIManager.SetResultText(resultOutcome.resultText);
             m_UIManager.ClearPhaseText();
             yield return new WaitForSeconds(m_GameConfig.turnWaitTime);
 
             Phase nextPhase;
-            if (!result.newPhase.HasValue)
+            if (!resultOutcome.newPhase.HasValue)
             {
                 // move current player
                 do
@@ -149,9 +149,9 @@ namespace Control
             }
             else
             {
-                if (result.newPhase.Value.choosingPlayer == playerId) // Hide result text when the player is directly responding
+                if (resultOutcome.newPhase.Value.choosingPlayer == playerId) // Hide result text when the player is directly responding
                     m_UIManager.SetResultText("");
-                nextPhase = result.newPhase.Value;
+                nextPhase = resultOutcome.newPhase.Value;
             }
             SetPhase(nextPhase);
         }

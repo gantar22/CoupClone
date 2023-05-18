@@ -83,13 +83,13 @@ namespace Control
             if (action.coinCost > playerState.coinCount)
                 return null; // Choice can't be afforded
 
-            ResultArguments onSelect;
+            Model.State.Results.Result onSelect;
             switch (action.actionType)
             {
                 case ActionType.StealCoins:
                 case ActionType.PlayerLosesInfluence:
                     // pick target
-                    onSelect = new ResultArguments.TargetPicking()
+                    onSelect = new Model.State.Results.TargetPicking()
                     {
                         action = action,
                         sourceCard = new Optional<CardId>(sourceCardOption)
@@ -99,7 +99,7 @@ namespace Control
                 case ActionType.ExchangeCards:
                     if (sourceCardOption)
                     {
-                        onSelect = new ResultArguments.DecisionToChallengeAction()
+                        onSelect = new Model.State.Results.DecisionToChallengeAction()
                         {
                             action = action,
                             claimedCard = sourceCardOption,
@@ -109,7 +109,7 @@ namespace Control
                     }
                     else
                     {
-                        onSelect = ResultResolution.ActionOutCome(action,targetedPlayer:null);
+                        onSelect = Model.Logic.ActionOutCome(action,targetedPlayer:null);
                     }
 
                     break;
