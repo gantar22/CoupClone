@@ -3,6 +3,12 @@ namespace Model.State.Results
     public class BlockNotChallenged : Result
     {
         public int blockingPlayer;
+
+        public BlockNotChallenged(int blockingPlayer)
+        {
+            this.blockingPlayer = blockingPlayer;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];

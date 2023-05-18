@@ -9,6 +9,15 @@ namespace Model.State.Results
         public ActionData actionNotBlocked;
         public CardId cardClaimedToBlock;
         public int revealedCardIndex;
+
+        public BlockChallengeSucceeds(int challengedBlocker, ActionData actionNotBlocked, CardId cardClaimedToBlock, int revealedCardIndex)
+        {
+            this.challengedBlocker = challengedBlocker;
+            this.actionNotBlocked = actionNotBlocked;
+            this.cardClaimedToBlock = cardClaimedToBlock;
+            this.revealedCardIndex = revealedCardIndex;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var cardDatabase = config.cardDatabase;

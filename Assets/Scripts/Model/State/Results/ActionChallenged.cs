@@ -10,7 +10,15 @@ namespace Model.State.Results
         public ActionData challengedAction;
         public CardId claimedCardId;
         public int? targetPlayer;
-        
+
+        public ActionChallenged(int challengingPlayer, ActionData challengedAction, CardId claimedCardId, int? targetPlayer)
+        {
+            this.challengingPlayer = challengingPlayer;
+            this.challengedAction = challengedAction;
+            this.claimedCardId = claimedCardId;
+            this.targetPlayer = targetPlayer;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];
@@ -36,11 +44,11 @@ namespace Model.State.Results
                                 title: $"Reveal {card.cardName}",
                                 description: $"Reveal {card.cardName}. It will be useless to you afterwards",
                                 justification: Choice.Justification.Free,
-                                onChosen: new ActionChallengeSucceeds()
-                                {
-                                    claimedCard = claimedCardId,
-                                    revealedCardIndex = cardIndex,
-                                }
+                                onChosen: new ActionChallengeSucceeds
+                                (
+                                    claimedCard: claimedCardId,
+                                    revealedCardIndex: cardIndex
+                                )
                             );
                         }                                
                         return new Choice()
@@ -50,13 +58,13 @@ namespace Model.State.Results
                             description =
                                 $"Reveal {card.cardName} to prove you have it. You'll get a random replacement afterwards.",
                             justification = Choice.Justification.Free,
-                            onChosen = new ActionChallengeFails()
-                            {
-                                playerThatChallenged = challengingPlayer,
-                                proposedAction = challengedAction,
-                                revealedCardIndex = cardIndex,
-                                targetPlayer = targetPlayer,
-                            }
+                            onChosen = new ActionChallengeFails
+                            (
+                                playerThatChallenged :challengingPlayer,
+                                proposedAction: challengedAction,
+                                revealedCardIndex: cardIndex,
+                                targetPlayer: targetPlayer
+                            )
                         };
                     })
             );

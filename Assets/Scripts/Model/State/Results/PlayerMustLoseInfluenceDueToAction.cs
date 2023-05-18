@@ -5,6 +5,12 @@ namespace Model.State.Results
     public class PlayerMustLoseInfluenceDueToAction : Result
     {
         public int targetPlayer;
+
+        public PlayerMustLoseInfluenceDueToAction(int targetPlayer)
+        {
+            this.targetPlayer = targetPlayer;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             return new ResultOutcome()
@@ -30,11 +36,11 @@ namespace Model.State.Results
                                 description:
                                 $"Reveal and lose the power of {config.cardDatabase.GetCard(card.id).cardName}",
                                 justification: Choice.Justification.Free,
-                                onChosen: new PlayerLosesInfluenceDueToAction()
-                                {
-                                    cardIndex = cardIndex,
-                                    targetPlayer = targetPlayer,
-                                }
+                                onChosen: new PlayerLosesInfluenceDueToAction
+                                (
+                                    cardIndex: cardIndex,
+                                    targetPlayer: targetPlayer
+                                )
                             );
                         })
                 ),

@@ -11,6 +11,14 @@ namespace Model.State.Results
         public int? targetPlayer; // we could just store the args here, but i'd like to have the raw info if we need to use it
 
 
+        public DecisionToChallengeAction(int decidingPlayer, CardId claimedCard, ActionData action, int? targetPlayer)
+        {
+            this.decidingPlayer = decidingPlayer;
+            this.claimedCard = claimedCard;
+            this.action = action;
+            this.targetPlayer = targetPlayer;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {                    
             var decidingPlayerState = gameState.playerStates[decidingPlayer];
@@ -26,13 +34,13 @@ namespace Model.State.Results
                 }
                 else
                 {
-                    passResult = new DecisionToChallengeAction()
-                    {
-                        action = action,
-                        decidingPlayer = nextPlayer,
-                        targetPlayer = targetPlayer,
-                        claimedCard = claimedCard,
-                    };
+                    passResult = new DecisionToChallengeAction
+                    (
+                        action: action,
+                        decidingPlayer: nextPlayer,
+                        targetPlayer: targetPlayer,
+                        claimedCard: claimedCard
+                    );
                 }
             }
             return new ResultOutcome()
@@ -52,13 +60,13 @@ namespace Model.State.Results
                             description:
                             $"Accuse {currentPlayer.playerName} of not having {config.cardDatabase.GetCard(claimedCard).cardName}",
                             justification: Choice.Justification.Free,
-                            onChosen: new ActionChallenged()
-                            {
-                                challengedAction = action,
-                                challengingPlayer = decidingPlayer,
-                                targetPlayer = targetPlayer,
-                                claimedCardId = claimedCard,
-                            }
+                            onChosen: new ActionChallenged
+                            (
+                                challengedAction: action,
+                                challengingPlayer: decidingPlayer,
+                                targetPlayer: targetPlayer,
+                                claimedCardId: claimedCard
+                            )
                         ),
                         new Choice
                         (

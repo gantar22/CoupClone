@@ -10,6 +10,14 @@ namespace Model.State.Results
         public int blockingPlayer;
         public ActionData actionBlocked;
         public int revealedCardIndex;
+
+        public BlockChallengeFails(int blockingPlayer, ActionData actionBlocked, int revealedCardIndex)
+        {
+            this.blockingPlayer = blockingPlayer;
+            this.actionBlocked = actionBlocked;
+            this.revealedCardIndex = revealedCardIndex;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var cardDatabase = config.cardDatabase;

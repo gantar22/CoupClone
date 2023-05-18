@@ -6,6 +6,12 @@ namespace Model.State.Results
     public class TakeCoins : Result
     {
         public int amount;
+
+        public TakeCoins(int amount)
+        {
+            this.amount = amount;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];

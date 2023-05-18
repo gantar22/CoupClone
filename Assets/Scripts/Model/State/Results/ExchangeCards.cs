@@ -8,6 +8,12 @@ namespace Model.State.Results
     public class ExchangeCards : Result
     {
         public int cardTotal;
+
+        public ExchangeCards(int cardTotal)
+        {
+            this.cardTotal = cardTotal;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];

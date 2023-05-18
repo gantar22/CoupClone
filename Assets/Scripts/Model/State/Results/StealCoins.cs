@@ -7,6 +7,13 @@ namespace Model.State.Results
     {
         public int targetPlayer;
         public int amount;
+
+        public StealCoins(int targetPlayer, int amount)
+        {
+            this.targetPlayer = targetPlayer;
+            this.amount = amount;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];

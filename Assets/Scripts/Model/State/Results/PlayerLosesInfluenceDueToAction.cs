@@ -6,6 +6,13 @@ namespace Model.State.Results
     {
         public int targetPlayer;
         public int cardIndex;
+
+        public PlayerLosesInfluenceDueToAction(int targetPlayer, int cardIndex)
+        {
+            this.targetPlayer = targetPlayer;
+            this.cardIndex = cardIndex;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var targetPlayerState = gameState.playerStates[targetPlayer];

@@ -7,6 +7,13 @@ namespace Model.State.Results
     {
         public int revealedCardIndex; // revealed by the current player, not the challenging player
         public CardId claimedCard;
+
+        public ActionChallengeSucceeds(int revealedCardIndex, CardId claimedCard)
+        {
+            this.revealedCardIndex = revealedCardIndex;
+            this.claimedCard = claimedCard;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];

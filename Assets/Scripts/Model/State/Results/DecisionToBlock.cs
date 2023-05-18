@@ -8,6 +8,13 @@ namespace Model.State.Results
     {
         public int targetedPlayer;
         public ActionData action;
+
+        public DecisionToBlock(int targetedPlayer, ActionData action)
+        {
+            this.targetedPlayer = targetedPlayer;
+            this.action = action;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];
@@ -38,12 +45,12 @@ namespace Model.State.Results
                                 justification: playerHasBlocker
                                     ? Choice.Justification.UseCard
                                     : Choice.Justification.Bluff,
-                                onChosen: new BlockAttempted()
-                                {
-                                    actionToBlock = action,
-                                    cardClaimedToBlock = cardThatCouldBeUsedToBlock,
-                                    targetedPlayer = targetedPlayer,
-                                }
+                                onChosen: new BlockAttempted
+                                (
+                                    actionToBlock: action,
+                                    cardClaimedToBlock: cardThatCouldBeUsedToBlock,
+                                    targetedPlayer: targetedPlayer
+                                )
                             );
                         }).Append(new Choice
                         (

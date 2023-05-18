@@ -8,6 +8,14 @@ namespace Model.State.Results
         public int targetedPlayer;
         public ActionData actionToBlock;
         public CardId cardClaimedToBlock;
+
+        public BlockAttempted(int targetedPlayer, ActionData actionToBlock, CardId cardClaimedToBlock)
+        {
+            this.targetedPlayer = targetedPlayer;
+            this.actionToBlock = actionToBlock;
+            this.cardClaimedToBlock = cardClaimedToBlock;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];
@@ -31,19 +39,19 @@ namespace Model.State.Results
                             title: "Pass",
                             description: "Allow the block and pass your turn",
                             justification: Choice.Justification.Free,
-                            onChosen: new BlockNotChallenged() { blockingPlayer = targetedPlayer }
+                            onChosen: new BlockNotChallenged(blockingPlayer: targetedPlayer)
                         ),
                         new Choice
                         (
                             title: "Challenge",
                             description: $"Challenge {targetedPlayerName}'s claim to be blocking as {cardUsedToBlock}",
                             justification: Choice.Justification.Free,
-                            onChosen: new BlockChallenged()
-                            {
-                                actionBeingBlocked = actionToBlock,
-                                cardBeingChallenged = cardClaimedToBlock,
-                                challengedBlocker = targetedPlayer,
-                            }
+                            onChosen: new BlockChallenged
+                            (
+                                actionBeingBlocked: actionToBlock,
+                                cardBeingChallenged: cardClaimedToBlock,
+                                challengedBlocker: targetedPlayer
+                            )
                         ),
                     }
                 ),

@@ -7,6 +7,13 @@ namespace Model.State.Results
     {
         public int cardIndex;
         public int cardsLeftToDiscard;
+
+        public DiscardedFromExchange(int cardIndex, int cardsLeftToDiscard)
+        {
+            this.cardIndex = cardIndex;
+            this.cardsLeftToDiscard = cardsLeftToDiscard;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];

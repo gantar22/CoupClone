@@ -10,6 +10,14 @@ namespace Model.State.Results
         public int challengedBlocker;
         public ActionData actionBeingBlocked;
         public CardId cardBeingChallenged;
+
+        public BlockChallenged(int challengedBlocker, ActionData actionBeingBlocked, CardId cardBeingChallenged)
+        {
+            this.challengedBlocker = challengedBlocker;
+            this.actionBeingBlocked = actionBeingBlocked;
+            this.cardBeingChallenged = cardBeingChallenged;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];
@@ -43,12 +51,12 @@ namespace Model.State.Results
                                     description:
                                     $"Reveal {cardData.card.cardName} to prove your innocence. You'll get a random replacement in exchange.",
                                     justification: Choice.Justification.Free,
-                                    onChosen: new BlockChallengeFails()
-                                    {
-                                        actionBlocked = actionBeingBlocked,
-                                        blockingPlayer = challengedBlocker,
-                                        revealedCardIndex = cardData.index,
-                                    }
+                                    onChosen: new BlockChallengeFails
+                                    (
+                                        actionBlocked: actionBeingBlocked,
+                                        blockingPlayer: challengedBlocker,
+                                        revealedCardIndex: cardData.index
+                                    )
                                 );
                             }
 
@@ -57,13 +65,13 @@ namespace Model.State.Results
                                 title: $"Reveal {cardData.card.cardName}",
                                 description: $"Reveal {cardData.card.cardName}. It will be useless to you afterwards.",
                                 justification: Choice.Justification.Free,
-                                onChosen: new BlockChallengeSucceeds()
-                                {
-                                    actionNotBlocked = actionBeingBlocked,
-                                    cardClaimedToBlock = cardBeingChallenged,
-                                    challengedBlocker = challengedBlocker,
-                                    revealedCardIndex = cardData.index,
-                                }
+                                onChosen: new BlockChallengeSucceeds
+                                (
+                                    actionNotBlocked: actionBeingBlocked,
+                                    cardClaimedToBlock: cardBeingChallenged,
+                                    challengedBlocker: challengedBlocker,
+                                    revealedCardIndex: cardData.index
+                                )
                             );
                         })
                 )

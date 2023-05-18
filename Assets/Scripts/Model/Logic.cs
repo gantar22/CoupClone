@@ -16,15 +16,15 @@ namespace Model
             switch (action.actionType)
             {
                 case ActionType.TakeCoins:
-                    return new State.Results.TakeCoins() { amount = action.amount };
+                    return new State.Results.TakeCoins(amount: action.amount);
                 case ActionType.StealCoins:
                     Debug.Assert(targetedPlayer != null, nameof(targetedPlayer) + " != null");
-                    return new State.Results.StealCoins() { amount = action.amount, targetPlayer = targetedPlayer.Value};
+                    return new State.Results.StealCoins(amount: action.amount, targetPlayer: targetedPlayer.Value);
                 case ActionType.ExchangeCards:
-                    return new State.Results.ExchangeCards() { cardTotal = action.amount };
+                    return new State.Results.ExchangeCards(cardTotal: action.amount);
                 case ActionType.PlayerLosesInfluence:
                     Debug.Assert(targetedPlayer != null, nameof(targetedPlayer) + " != null");
-                    return new State.Results.PlayerMustLoseInfluenceDueToAction() { targetPlayer = targetedPlayer.Value };// todo handle amount similar to how exchange does
+                    return new State.Results.PlayerMustLoseInfluenceDueToAction(targetPlayer: targetedPlayer.Value);// todo handle [action.amount] similar to how exchange does
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -57,11 +57,11 @@ namespace Model
                             title: cardDatabase.GetCard(card.id).cardName,
                             description: $"Return {cardDatabase.GetCard(card.id).cardName} to the court deck",
                             justification: Choice.Justification.Free,
-                            onChosen: new State.Results.DiscardedFromExchange()
-                            {
-                                cardIndex = cardIndex,
-                                cardsLeftToDiscard = cardsToDiscard - 1,
-                            }
+                            onChosen: new State.Results.DiscardedFromExchange
+                            (
+                                cardIndex: cardIndex,
+                                cardsLeftToDiscard: cardsToDiscard - 1
+                            )
                         );
                     })
             );

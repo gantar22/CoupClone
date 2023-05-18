@@ -89,23 +89,23 @@ namespace Control
                 case ActionType.StealCoins:
                 case ActionType.PlayerLosesInfluence:
                     // pick target
-                    onSelect = new Model.State.Results.TargetPicking()
-                    {
-                        action = action,
-                        sourceCard = new Optional<CardId>(sourceCardOption)
-                    };
+                    onSelect = new Model.State.Results.TargetPicking
+                    (
+                        action: action,
+                        sourceCard: new Optional<CardId>(sourceCardOption)
+                    );
                     break;
                 case ActionType.TakeCoins:
                 case ActionType.ExchangeCards:
                     if (sourceCardOption)
                     {
-                        onSelect = new Model.State.Results.DecisionToChallengeAction()
-                        {
-                            action = action,
-                            claimedCard = sourceCardOption,
-                            decidingPlayer = (gameState.currentPlayersTurn + 1) % gameState.playerStates.Length,
-                            targetPlayer = null,
-                        };
+                        onSelect = new Model.State.Results.DecisionToChallengeAction
+                        (
+                            action: action,
+                            claimedCard: sourceCardOption,
+                            decidingPlayer: (gameState.currentPlayersTurn + 1) % gameState.playerStates.Length,
+                            targetPlayer: null
+                        );
                     }
                     else
                     {

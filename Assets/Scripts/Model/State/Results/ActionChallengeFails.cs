@@ -12,6 +12,14 @@ namespace Model.State.Results
         public ActionData proposedAction;
         public int? targetPlayer;
 
+        public ActionChallengeFails(int revealedCardIndex, int playerThatChallenged, ActionData proposedAction, int? targetPlayer)
+        {
+            this.revealedCardIndex = revealedCardIndex;
+            this.playerThatChallenged = playerThatChallenged;
+            this.proposedAction = proposedAction;
+            this.targetPlayer = targetPlayer;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];
@@ -48,11 +56,11 @@ namespace Model.State.Results
                             Result nextResultArgs;
                             if (targetPlayer.HasValue)
                             {
-                                nextResultArgs = new DecisionToBlock()
-                                {
-                                    targetedPlayer = targetPlayer.Value,
-                                    action = proposedAction,
-                                };
+                                nextResultArgs = new DecisionToBlock
+                                (
+                                    targetedPlayer: targetPlayer.Value,
+                                    action: proposedAction
+                                );
                             }
                             else
                             {
@@ -67,7 +75,7 @@ namespace Model.State.Results
                                 title: $"Reveal {revealedCard.cardName}",
                                 description: "It will be useless to you afterwards",
                                 justification: Choice.Justification.Free,
-                                onChosen: new GenericResult() { result = nextResult }
+                                onChosen: new GenericResult(nextResult)
                             );
                         })
                 )

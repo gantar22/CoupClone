@@ -10,6 +10,13 @@ namespace Model.State.Results
     {
         public ActionData action;
         public Optional<CardId> sourceCard;
+
+        public TargetPicking(ActionData action, Optional<CardId> sourceCard)
+        {
+            this.action = action;
+            this.sourceCard = sourceCard;
+        }
+
         public override ResultOutcome GetResult(GameState gameState, GameConfig config)
         {
             var currentPlayer = gameState.playerStates[gameState.currentPlayersTurn];
@@ -33,23 +40,21 @@ namespace Model.State.Results
                             Result onTarget;
                             if (sourceCard.TryGetValue(out var sourceCardId))
                             {
-                                onTarget = new DecisionToChallengeAction()
-                                {
-                                    action = action,
-                                    claimedCard = sourceCardId,
-                                    targetPlayer =
-                                        targetPlayer, // by passing a non-null value we expect the challenge flow to handle blocking
-                                    decidingPlayer = (gameState.currentPlayersTurn + 1) %
-                                                     gameState.playerStates.Length,
-                                };
+                                onTarget = new DecisionToChallengeAction
+                                (
+                                    action: action,
+                                    claimedCard: sourceCardId,
+                                    targetPlayer: targetPlayer, // by passing a non-null value we expect the challenge flow to handle blocking
+                                    decidingPlayer: (gameState.currentPlayersTurn + 1) % gameState.playerStates.Length
+                                );
                             }
                             else
                             {
-                                onTarget = new DecisionToBlock()
-                                {
-                                    action = action,
-                                    targetedPlayer = targetPlayer,
-                                };
+                                onTarget = new DecisionToBlock
+                                (
+                                    action: action,
+                                    targetedPlayer: targetPlayer
+                                );
                             }
 
                             return new Choice
