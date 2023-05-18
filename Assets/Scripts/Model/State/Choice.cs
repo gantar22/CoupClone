@@ -26,6 +26,14 @@ namespace Model.State
         public string description;
         public Justification justification;
         public ResultArguments onChosen;
+
+        public Choice(string title, string description, Justification justification, ResultArguments onChosen)
+        {
+            this.title = title;
+            this.description = description;
+            this.justification = justification;
+            this.onChosen = onChosen;
+        }
     }
 
     public abstract class ResultArguments// acting as sum-type / discr union, could use visitor pattern, but don't want the boiler plate
@@ -153,5 +161,12 @@ namespace Model.State
         public string text;
         public int choosingPlayer;
         public IEnumerable<Choice> choices;
+
+        public Phase(string text, int choosingPlayer, IEnumerable<Choice> choices)
+        {
+            this.text = text;
+            this.choosingPlayer = choosingPlayer;
+            this.choices = choices;
+        }
     }
 }

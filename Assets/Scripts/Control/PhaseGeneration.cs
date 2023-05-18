@@ -43,20 +43,20 @@ namespace Control
             if (forcedActions.Any())
             {
                 var forcedAction = forcedActions.OrderBy(_=>_.action.obligatoryCoinCost.Value).First();
-                return new Phase()
-                {
-                    text = $"You must perform {forcedAction.action.name}.",
-                    choosingPlayer = gameState.currentPlayersTurn,
-                    choices = new[] { forcedAction.choice },
-                };
+                return new Phase
+                (
+                    text: $"You must perform {forcedAction.action.name}.",
+                    choosingPlayer: gameState.currentPlayersTurn,
+                    choices: new[] { forcedAction.choice }
+                );
             } // else return all of the normal actions
 
-            return new Phase()
-            {
-                text = "Choose an action for your turn",
-                choosingPlayer = gameState.currentPlayersTurn,
-                choices = allActionsWithChoices.Select(_ => _.choice),
-            };
+            return new Phase
+            (
+                text: "Choose an action for your turn",
+                choosingPlayer: gameState.currentPlayersTurn,
+                choices: allActionsWithChoices.Select(_ => _.choice)
+            );
         }
         
         public static Choice.Justification GenerateChoiceJustification(ActionData action,PlayerState playerState, CardId sourceCardOption)
