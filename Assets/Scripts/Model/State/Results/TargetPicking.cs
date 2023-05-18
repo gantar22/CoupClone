@@ -33,6 +33,7 @@ namespace Model.State.Results
                     choices: gameState.playerStates
                         .Select((playerState, targetPlayer) => (playerState, targetPlayer))
                         .Where(_ => _.targetPlayer != gameState.currentPlayersTurn)
+                        .Where(_=> _.playerState.cards.Any(c=>c.isFaceDown))// can only target alive players
                         .Select(_ =>
                         {
                             var playerState = _.playerState;
